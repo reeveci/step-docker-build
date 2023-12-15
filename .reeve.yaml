@@ -12,7 +12,7 @@ when:
       - .env
       - .reeve.yaml
   action:
-    include: [reeveci:step-docker-build:build]
+    include: [reeveci:steps:docker-build:build]
 
 steps:
   - name: Load env
