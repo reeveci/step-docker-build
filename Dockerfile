@@ -1,7 +1,7 @@
 FROM docker
 
 RUN apk add bash
-COPY --chmod=500 docker-entrypoint.sh /usr/local/bin/
+COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/
 
 # DOCKER_LOGIN_REGISTRY: docker registry to log in to - can be inferred from the image name if left empty
 ENV DOCKER_LOGIN_REGISTRY=
