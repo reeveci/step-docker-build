@@ -9,7 +9,7 @@ when:
     include: [commit, action]
   file:
     include:
-      - .env
+      - config.env
       - .reeve.yaml
   action:
     include: [reeveci:steps:docker-build:build]
@@ -18,6 +18,7 @@ steps:
   - name: Load env
     task: "@reeve/load-env-file"
     params:
+      FILE: config.env
       LOAD_ALL: "true"
 
   - name: Build image
