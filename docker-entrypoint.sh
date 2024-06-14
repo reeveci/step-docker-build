@@ -63,7 +63,7 @@ for arg in $(printf "%s" "$BUILD_ARGS" | xargs -n1); do
 done
 unset IFS
 
-COMMAND="docker build $([[ -n "$NETWORK" ]] && printf "%s" "--network $NETWORK" ||:) $([[ "$USE_CACHE" = "false" ]] && printf "%s" "--no-cache" ||:) $([[ -n "$PLATFORM" ]] && printf "%s" "--platform $PLATFORM" ||:) $([[ "$PULL" = "always" ]] && printf "%s" "--pull" ||:) $([[ "$SQUASH" = "true" ]] && printf "%s" "--squash" ||:) -t $FULL_NAME"
+COMMAND="docker build $([[ -n "$NETWORK" ]] && printf "%s" "--network $NETWORK" ||:) $([[ "$USE_CACHE" = "false" ]] && printf "%s" "--no-cache" ||:) $([[ -n "$PLATFORM" ]] && printf "%s" "--platform $PLATFORM" ||:) $([[ "$PULL" = "always" ]] && printf "%s" "--pull" ||:) $([[ "$SQUASH" = "true" ]] && printf "%s" "--squash" ||:) -t $FULL_NAME $([[ -n "$TAG" ]] && [[ "$PUSH_LATEST" = "true" ]] && printf "%s" "-t $NAME:latest" ||:)"
 
 echo Building image $FULL_NAME...
 if [ "$FILE" = "-" ]; then
@@ -77,9 +77,6 @@ if [ "$PUSH" = "true" ]; then
   docker push $FULL_NAME
 
   if [ -n "$TAG" ] && [ "$PUSH_LATEST" = "true" ]; then
-    echo Tagging image $NAME:latest...
-    docker tag $FULL_NAME $NAME:latest
-
     echo Pushing image $NAME:latest...
     docker push $NAME:latest
   fi
