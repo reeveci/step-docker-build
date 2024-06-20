@@ -9,7 +9,7 @@ fi
 cd /reeve/src/${CONTEXT}
 
 if [ -n "$RESULT_VAR" ]; then
-  wget -O - -q "$REEVE_API/api/v1/var/set?key=$RESULT_VAR&value=failure" >/dev/null
+  wget -O - -q "$REEVE_API/api/v1/var?key=$RESULT_VAR&value=failure" >/dev/null
 fi
 
 if [ -z "$NAME" ]; then
@@ -35,7 +35,7 @@ if [ "$TEST" = "true" ] || [ "$TEST" = "fail" ]; then
     if DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $FULL_NAME >/dev/null; then
       echo Image already exists - done
       if [ -n "$RESULT_VAR" ]; then
-        wget -O - -q "$REEVE_API/api/v1/var/set?key=$RESULT_VAR&value=exists" >/dev/null
+        wget -O - -q "$REEVE_API/api/v1/var?key=$RESULT_VAR&value=exists" >/dev/null
       fi
       ! [ "$TEST" = "fail" ]; exit
     fi
@@ -48,7 +48,7 @@ if [ "$TEST" = "true" ] || [ "$TEST" = "fail" ]; then
     if docker pull $FULL_NAME >/dev/null 2>&1; then
       echo Image already exists - done
       if [ -n "$RESULT_VAR" ]; then
-        wget -O - -q "$REEVE_API/api/v1/var/set?key=$RESULT_VAR&value=exists" >/dev/null
+        wget -O - -q "$REEVE_API/api/v1/var?key=$RESULT_VAR&value=exists" >/dev/null
       fi
       ! [ "$TEST" = "fail" ]; exit
     fi
@@ -83,5 +83,5 @@ if [ "$PUSH" = "true" ]; then
 fi
 
 if [ -n "$RESULT_VAR" ]; then
-  wget -O - -q "$REEVE_API/api/v1/var/set?key=$RESULT_VAR&value=success" >/dev/null
+  wget -O - -q "$REEVE_API/api/v1/var?key=$RESULT_VAR&value=success" >/dev/null
 fi
