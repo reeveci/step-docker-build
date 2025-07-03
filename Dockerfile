@@ -4,7 +4,7 @@ ARG REEVE_TOOLS_VERSION
 
 ENV CGO_ENABLED=0
 RUN go install github.com/reeveci/reeve/reeve-tools@v${REEVE_TOOLS_VERSION}
-RUN cp $(go env GOPATH)/bin/reeve /usr/local/bin/
+RUN cp $(go env GOPATH)/bin/reeve-tools /usr/local/bin/
 
 FROM docker
 
