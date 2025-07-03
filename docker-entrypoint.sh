@@ -20,6 +20,8 @@ fi
 if [ -n "$DOCKER_LOGIN_REGISTRIES" ]; then
   reeve-tools login-docker $DOCKER_LOGIN_REGISTRIES
 elif [ -n "$DOCKER_LOGIN_USER" ]; then
+  echo WARNING: The DOCKER_LOGIN_REGISTRY, DOCKER_LOGIN_USER and DOCKER_LOGIN_PASSWORD params are deprecated and will stop working in a future version! Use DOCKER_LOGIN_REGISTRIES instead.
+
   if [ -z "$DOCKER_LOGIN_PASSWORD" ]; then
     echo Missing login password
     exit 1
