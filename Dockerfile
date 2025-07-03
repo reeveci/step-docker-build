@@ -1,7 +1,16 @@
+FROM golang AS builder
+
+ARG REEVE_TOOLS_VERSION
+
+ENV CGO_ENABLED=0
+RUN go install github.com/reeveci/reeve/reeve-tools@v${REEVE_TOOLS_VERSION}
+RUN cp $(go env GOPATH)/bin/reeve /usr/local/bin/
+
 FROM docker
 
 RUN apk add bash
 COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/
+COPY --chmod=755 --from=builder /usr/local/bin/reeve-tools /usr/local/bin/
 
 # DOCKER_LOGIN_REGISTRY: docker registry to log in to - can be inferred from the image name if left empty
 ENV DOCKER_LOGIN_REGISTRY=

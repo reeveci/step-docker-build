@@ -17,7 +17,9 @@ if [ -z "$NAME" ]; then
   exit 1
 fi
 
-if [ -n "$DOCKER_LOGIN_USER" ]; then
+if [ -n "$DOCKER_LOGIN_REGISTRIES" ]; then
+  reeve-tools login-docker $DOCKER_LOGIN_REGISTRIES
+elif [ -n "$DOCKER_LOGIN_USER" ]; then
   if [ -z "$DOCKER_LOGIN_PASSWORD" ]; then
     echo Missing login password
     exit 1

@@ -30,3 +30,5 @@ steps:
       NAME: docker.io/reeveci/step-docker-build
       TAG: { var: STEP_VERSION }
       PLATFORM: amd64
+      BUILD_ARGS: REEVE_TOOLS_VERSION=$REEVE_TOOLS_VERSION
+      REEVE_TOOLS_VERSION: { var: REEVE_TOOLS_VERSION }
